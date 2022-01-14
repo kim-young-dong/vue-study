@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <router-link to = '/user'>User</router-link>
+    <router-link to = '/product'>Product</router-link>
+    <router-view></router-view>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+  <script>
+    const User = {
+      template: 
+      `
+      <div>
+        User Component<br>
+        <router-link to = '/profile'>UserProfile</router-link>
+        <router-link to = '/post'>UserPost</router-link>
+        <router-view></router-view>
+      </div>
+      `
+    };
+    const Profile = {template: '<div>User Profile </div>'};
+    const Post = {template: '<div>User Post</div>'};
+    const Product = {template: '<div>Product</div>'}
+
+    const routes = [
+      {
+      path: '/user',
+      component: User,
+      children: [
+        {
+          path: '/profile',
+          component: Profile
+        },
+        {
+          path: '/post',
+          component: Post
+        },
+      ]
+    },
+    {
+      path: '/product',
+      component: Product
+    }
+  ];
+    const router = new VueRouter({
+      routes
+    });
+    const app =  new Vue({
+      router
+    }).$mount('#app');
+  </script>
+</body>
+</html>
